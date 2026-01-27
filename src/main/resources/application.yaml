@@ -46,9 +46,9 @@ envio:
 
   email:
 
-    remetente: guidamunda@gmail.com
+    remetente:
 
-    nomeRemetente: 'COSTADev'
+    nomeRemetente:
 
 server:
 
