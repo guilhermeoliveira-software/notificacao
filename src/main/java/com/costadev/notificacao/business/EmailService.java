@@ -1,6 +1,6 @@
 package com.costadev.notificacao.business;
 
-import com.costadev.notificacao.business.DTO.TarefasDTO;
+import com.costadev.notificacao.business.dto.TarefasDTO;
 import com.costadev.notificacao.infrasctruture.exception.EmailException;
 import jakarta.mail.MessagingException;
 import jakarta.mail.internet.InternetAddress;
