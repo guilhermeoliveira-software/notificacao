@@ -80,10 +80,3 @@ O projeto inclui um `Dockerfile` para facilitar a conteinerização da aplicaç�
 
     A aplicação estará acessível em `http://localhost:8080` dentro do contêiner.
 
-## Contribuição
-
-Contribuições são bem-vindas! Sinta-se à vontade para abrir issues e pull requests no repositório.
-
-## Licença
-
-Este projeto está licenciado sob a licença MIT. Veja o arquivo `LICENSE` para mais detalhes. (Assumindo licença MIT, caso contrário, ajustar)
