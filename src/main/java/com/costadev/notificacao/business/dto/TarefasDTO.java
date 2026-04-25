@@ -1,4 +1,4 @@
-package com.costadev.notificacao.business.DTO;
+package com.costadev.notificacao.business.dto;
 
 import com.costadev.notificacao.business.enums.StatusNotificacaoEnum;
 import com.fasterxml.jackson.annotation.JsonFormat;

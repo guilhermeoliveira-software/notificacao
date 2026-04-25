@@ -1,6 +1,6 @@
 package com.costadev.notificacao.controller;
 
-import com.costadev.notificacao.business.DTO.TarefasDTO;
+import com.costadev.notificacao.business.dto.TarefasDTO;
 import com.costadev.notificacao.business.EmailService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
