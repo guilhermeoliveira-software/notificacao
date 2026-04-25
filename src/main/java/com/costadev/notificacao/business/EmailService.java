@@ -30,13 +30,15 @@ public class EmailService {
     public String nomeRemetente;
 
     public void enviarEmail (TarefasDTO tarefasDTO){
+        System.out.println("DTO Recebido: " + tarefasDTO.toString());
         try {
             MimeMessage mensagem = mailSender.createMimeMessage();
             MimeMessageHelper mimeMessageHelper = new MimeMessageHelper(
                     mensagem, true, StandardCharsets.UTF_8.name());
 
             mimeMessageHelper.setFrom(new InternetAddress(remetente, nomeRemetente));
-            mimeMessageHelper.setTo(InternetAddress.parse(tarefasDTO.getEmailUsuario()));
+            System.out.println("Remetente: " + remetente);
+            mimeMessageHelper.setTo(InternetAddress.parse(tarefasDTO.getEmailDestinatario()));
             mimeMessageHelper.setSubject("Notificacao da Tarefa");
 
             Context context = new Context();
