@@ -1,82 +1,111 @@
-# Projeto Notificação
+# 📧 Notificação por E-mail
 
-## Descrição
+Microserviço desacoplado responsável pelo envio de e-mails e lembretes do ecossistema de agendamento de tarefas, com templates dinâmicos via **Thymeleaf**.
 
-Este projeto é uma aplicação Spring Boot desenvolvida para gerenciar e enviar notificações. Ele utiliza Java 21 e Gradle para construção, com foco principal no envio de e-mails transacionais e informativos. A arquitetura modular permite fácil integração e escalabilidade.
+🔗 **API em produção:** [notificacao-production.up.railway.app](https://notificacao-production.up.railway.app)
 
-## Tecnologias Utilizadas
+---
 
-As principais tecnologias e ferramentas utilizadas neste projeto incluem:
+## 📌 Sobre o Projeto
 
-*   **Java 21**: Linguagem de programação principal.
-*   **Spring Boot 3.2.5**: Framework para construção de aplicações Java robustas e eficientes.
-*   **Gradle**: Ferramenta de automação de build.
-*   **Spring Boot Starter Mail**: Para o envio de e-mails.
-*   **Spring Boot Starter Thymeleaf**: Para a criação de templates de e-mail.
-*   **Spring Boot Starter Web**: Para a construção de aplicações web.
-*   **Lombok**: Para reduzir o código boilerplate.
-*   **JUnit 5**: Para testes unitários e de integração.
-*   **SonarQube**: Para análise de qualidade de código.
-*   **Docker**: Para conteinerização da aplicação.
+Este serviço foi projetado para ser facilmente acoplado a qualquer outro microserviço que precise enviar notificações por e-mail. Ele garante que os usuários recebam lembretes claros e personalizados sobre suas tarefas agendadas.
 
-## Estrutura do Projeto
+| Serviço | Responsabilidade |
+|---|---|
+| [BFF Agendador](https://github.com/guilhermeoliveira-software/bff-agendador-tarefas) | Orquestração e gateway para o frontend |
+| [Gestão de Usuários](https://github.com/guilhermeoliveira-software/usuario) | Autenticação e gerenciamento de perfis |
+| [Agendador de Tarefas](https://github.com/guilhermeoliveira-software/agendador-tarefas) | Ciclo de vida e agendamento das tarefas |
+| **Notificação por E-mail** (este) | Envio de e-mails e lembretes |
 
-A estrutura do projeto segue as convenções de um projeto Spring Boot, com pacotes organizados por funcionalidade:
+---
+
+## 🚀 Funcionalidades
+
+- Envio de e-mails automáticos via **SMTP (Gmail)**
+- Templates dinâmicos e personalizados com **Thymeleaf**
+- Gerenciamento de estados das notificações via **ENUMs**
+- Fácil integração com qualquer microserviço do ecossistema
+- Pipeline de CI/CD automatizado com **GitHub Actions**
+- Análise de qualidade de código com **SonarQube**
+
+---
+
+## 🛠️ Tecnologias
+
+- **Java 21**
+- **Spring Boot 3**
+- **Spring Mail (JavaMailSender)**
+- **Thymeleaf**
+- **Docker**
+- **CI/CD com GitHub Actions**
+- **SonarQube**
+
+---
+
+## 📁 Estrutura do Projeto
 
 ```
 src/
-├── main/
-│   ├── java/
-│   │   └── com/costadev/notificacao/
-│   │       ├── business/             # Lógica de negócio e serviços
-│   │       ├── controller/           # Controladores REST
-│   │       └── infrasctruture/       # Configurações de infraestrutura e exceções
-│   └── resources/            # Arquivos de configuração e templates
-├── test/
-│   └── java/
-│       └── com/costadev/notificacao/ # Testes unitários e de integração
-└── ...
+└── main/
+    └── java/
+        └── com/costadev/notificacao/
+            ├── business/          # Lógica de envio de e-mails
+            ├── controller/        # Endpoints REST
+            └── infrastructure/    # Configurações de e-mail e templates
+    └── resources/
+        └── templates/             # Templates HTML do Thymeleaf
 ```
 
-## Como Executar
+---
 
-Para executar a aplicação localmente, siga os passos abaixo:
+## ⚙️ Como Executar Localmente
 
-1.  **Pré-requisitos**:
-    *   Java Development Kit (JDK) 21 ou superior.
-    *   Gradle (opcional, pois o projeto inclui o wrapper Gradle).
+### Pré-requisitos
+- Java 21+
+- Docker
+- Conta Gmail com **App Password** configurada
 
-2.  **Clonar o repositório**:
+### Passos
 
-    ```bash
-    git clone https://github.com/guilhermeoliveira-software/notificacao.git
-    cd notificacao
-    ```
+```bash
+# Clone o repositório
+git clone https://github.com/guilhermeoliveira-software/notificacao.git
+cd notificacao
 
-3.  **Compilar e executar**:
+# Configure as variáveis de ambiente
+# Edite o application.yaml com suas credenciais
 
-    ```bash
-    ./gradlew build
-    java -jar build/libs/notificacao-0.0.1-SNAPSHOT.jar
-    ```
+# Suba com Docker
+docker build -t notificacao .
+docker run -p 8082:8082 notificacao
+```
 
-    A aplicação estará disponível em `http://localhost:8080`.
+A API estará disponível em: `http://localhost:8082`
 
-## Configuração do Docker
+---
 
-O projeto inclui um `Dockerfile` para facilitar a conteinerização da aplicação:
+## 🌍 Variáveis de Ambiente
 
-1.  **Construir a imagem Docker**:
+| Variável | Descrição |
+|---|---|
+| `MAIL_USERNAME` | E-mail remetente (Gmail) |
+| `MAIL_PASSWORD` | App Password do Gmail |
+| `MAIL_NOME_REMETENTE` | Nome exibido no e-mail |
 
-    ```bash
-    docker build -t notificacao-app .
-    ```
+> ⚠️ Nunca exponha credenciais de e-mail no código. Use sempre variáveis de ambiente.
 
-2.  **Executar o contêiner Docker**:
+---
 
-    ```bash
-    docker run -p 8080:8080 notificacao-app
-    ```
+## 📨 Como Configurar o Gmail
 
-    A aplicação estará acessível em `http://localhost:8080` dentro do contêiner.
+1. Acesse [myaccount.google.com/apppasswords](https://myaccount.google.com/apppasswords)
+2. Gere uma **App Password** para o projeto
+3. Use essa senha na variável `MAIL_PASSWORD`
 
+---
+
+## 👨‍💻 Autor
+
+**José Guilherme Da Costa Oliveira**
+- 💼 [LinkedIn](https://www.linkedin.com/in/guilherme-costa-oliveiraa/)
+- 🐙 [GitHub](https://github.com/guilhermeoliveira-software)
