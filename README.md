@@ -2,7 +2,6 @@
 
 Microserviço desacoplado responsável pelo envio de e-mails e lembretes do ecossistema de agendamento de tarefas, com templates dinâmicos via **Thymeleaf**.
 
-🔗 **API em produção:** [notificacao-production.up.railway.app](https://notificacao-production.up.railway.app)
 
 ---
 
